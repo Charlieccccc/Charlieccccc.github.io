@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charlie 程天瑞 — Investment Science</title>
+<meta name="description" content="Cheng Tianrui (Charlie) — Investment Science and Financial Analytics, The Hong Kong Polytechnic University.">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #000000;
+  --bg-section: #0a0a0a;
+  --bg-elevated: #1d1d1f;
+  --bg-card: #161617;
+  --text: #f5f5f7;
+  --text-muted: #86868b;
+  --text-subtle: #6e6e73;
+  --accent: #2997ff;
+  --gold: #d4af6a;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; background: var(--bg); }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.47;
+  letter-spacing: -0.003em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(41, 151, 255, 0.35); color: #fff; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ============ Navigation ============ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-inner {
+  width: 100%;
+  max-width: 1020px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  background: linear-gradient(180deg, #fff 0%, #c7c7cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.82;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover { opacity: 1; }
+
+@media (max-width: 720px) {
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 11px; }
+}
+
+/* ============ Hero ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 22px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130%;
+  height: 90%;
+  background: radial-gradient(ellipse at center, rgba(41, 151, 255, 0.10) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  font-size: 21px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  opacity: 0;
+  animation: fadeUp 1s var(--ease) 0.2s forwards;
+}
+
+.hero-title {
+  font-size: clamp(56px, 11vw, 144px);
+  font-weight: 700;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  margin-bottom: 28px;
+  padding-inline: 0.12em;
+  background: linear-gradient(180deg, #ffffff 0%, #c7c7cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  animation: fadeUp 1.2s var(--ease) 0.4s forwards;
+}
+
+.hero-fullname {
+  font-size: 15px;
+  color: var(--text-subtle);
+  letter-spacing: 0.06em;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 1s var(--ease) 0.6s forwards;
+}
+
+.hero-tagline {
+  font-size: clamp(20px, 2.6vw, 28px);
+  color: var(--text);
+  max-width: 760px;
+  margin: 0 auto 14px;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  opacity: 0;
+  animation: fadeUp 1s var(--ease) 0.8s forwards;
+}
+
+.hero-motto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: clamp(15px, 1.7vw, 19px);
+  color: var(--text);
+  opacity: 0;
+  letter-spacing: -0.005em;
+  font-style: italic;
+  margin: 22px 0 18px;
+  animation: fadeUp 1s var(--ease) 1s forwards;
+}
+
+.hero-motto::before,
+.hero-motto::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-muted);
+  letter-spacing: -0.008em;
+  opacity: 0;
+  animation: fadeUp 1s var(--ease) 1.2s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-subtle);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeIn 1.5s ease 1.6s forwards;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, transparent, var(--text-muted), transparent);
+  transform-origin: top;
+  animation: pulseDown 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseDown {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============ Sections ============ */
+.section {
+  padding: 140px 22px;
+  position: relative;
+}
+
+.section-alt { background: var(--bg); }
+
+.container {
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: -0.012em;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: clamp(40px, 6.4vw, 76px);
+  font-weight: 600;
+  letter-spacing: -0.038em;
+  line-height: 1.04;
+  margin-bottom: 28px;
+  color: var(--text);
+}
+
+.section-title .gradient {
+  background: linear-gradient(135deg, #e8e8ed 0%, #8e8e93 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-lede {
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: var(--text-muted);
+  max-width: 760px;
+  letter-spacing: -0.013em;
+  line-height: 1.42;
+  margin-bottom: 72px;
+}
+
+/* ============ About ============ */
+.about-body {
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  max-width: 940px;
+  color: var(--text-muted);
+}
+
+.about-body strong {
+  font-weight: 500;
+  background: linear-gradient(180deg, #ffffff 0%, #c7c7cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about-body-next {
+  margin-top: 0.55em;
+}
+
+/* ============ Numbers / Stats ============ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 44px 32px;
+  transition: transform 0.5s var(--ease), border-color 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+}
+
+.stat-num {
+  font-size: clamp(56px, 7vw, 88px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 0%, #8e8e93 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-num.gold {
+  background: linear-gradient(180deg, #f4d99c 0%, #b78a45 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+}
+
+.stat-label-en {
+  display: block;
+  font-size: 12px;
+  color: var(--text-subtle);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ============ Skills ============ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+
+.skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 44px 36px;
+  transition: transform 0.5s var(--ease), border-color 0.3s ease, background 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+  background: #1a1a1c;
+}
+
+.skill-card-num {
+  font-size: 13px;
+  color: var(--text-subtle);
+  letter-spacing: 0.08em;
+  margin-bottom: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-card-title {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  margin-bottom: 22px;
+  line-height: 1.15;
+}
+
+.skill-card-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-card-list li {
+  font-size: 13px;
+  color: var(--text);
+  opacity: 0.78;
+  padding: 6px 13px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  letter-spacing: -0.002em;
+}
+
+/* ============ Projects ============ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  overflow: hidden;
+  transition: transform 0.5s var(--ease), border-color 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-strong);
+}
+
+.project-visual {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+}
+
+.visual-1 { background: linear-gradient(135deg, #0d2818 0%, #0a3d28 50%, #04140c 100%); }
+.visual-2 { background: linear-gradient(135deg, #1a1f3a 0%, #0d1226 100%); }
+.visual-3 { background: linear-gradient(135deg, #2c1f0a 0%, #1c1408 50%, #0c0805 100%); }
+.visual-4 { background: linear-gradient(135deg, #2a1538 0%, #1a0d2a 50%, #0d0518 100%); }
+
+.visual-chart, .visual-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.project-body {
+  padding: 34px 38px 38px;
+}
+
+.project-tag {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: -0.003em;
+  margin-bottom: 14px;
+}
+
+.project-tag.gold { color: var(--gold); }
+
+.project-title {
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.024em;
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.project-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 22px;
+  max-width: 580px;
+}
+
+.project-link {
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: -0.005em;
+  transition: opacity 0.2s ease;
+}
+
+.project-link:hover { opacity: 0.75; }
+
+.project-link::after { content: ' ›'; }
+
+@media (max-width: 720px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-body { padding: 28px 26px 30px; }
+}
+
+/* ============ Experience / Timeline ============ */
+.timeline {
+  position: relative;
+  padding-left: 36px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--border-strong);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 52px;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -32px;
+  top: 8px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 0 5px var(--bg);
+}
+
+.timeline-item.gold::before {
+  background: var(--gold);
+}
+
+.timeline-period {
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.timeline-place {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  letter-spacing: -0.008em;
+}
+
+.timeline-desc {
+  font-size: 15px;
+  color: var(--text);
+  opacity: 0.82;
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+/* ============ Contact ============ */
+.contact {
+  text-align: center;
+  padding: 180px 22px 120px;
+}
+
+.contact-eyebrow {
+  font-size: 21px;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  letter-spacing: -0.01em;
+}
+
+.contact-title {
+  font-size: clamp(56px, 10vw, 120px);
+  font-weight: 700;
+  letter-spacing: -0.044em;
+  line-height: 0.98;
+  margin-bottom: 56px;
+  background: linear-gradient(180deg, #ffffff 0%, #86868b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  padding: 16px 36px;
+  background: var(--accent);
+  color: white;
+  border-radius: 100px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.contact-cta:hover { opacity: 0.88; transform: scale(1.03); }
+
+.contact-links {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 44px;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  color: var(--text-muted);
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  transition: color 0.2s ease;
+}
+
+.contact-links a:hover { color: var(--text); }
+
+/* ============ Toast ============ */
+.contact-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(28, 28, 30, 0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 13px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.4s var(--ease);
+  z-index: 200;
+}
+
+.contact-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============ Travel / Globe ============ */
+.globe-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  align-items: center;
+}
+
+.globe-stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.globe-stage::before {
+  content: '';
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(41, 151, 255, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(20px);
+}
+
+.globe {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 1;
+}
+
+.globe:active { cursor: grabbing; }
+
+.globe canvas { display: block; }
+
+.cities-list {
+  width: 100%;
+}
+
+.cities-list .cities-eyebrow {
+  font-size: 12px;
+  color: var(--text-subtle);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.cities-list ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.cities-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 13px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s var(--ease);
+}
+
+.cities-list li:hover {
+  background: #1a1a1c;
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.cities-list .city-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.008em;
+}
+
+.cities-list .city-cn {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 720px) {
+  .globe-stage { max-width: 380px; }
+}
+
+/* ============ Photo Modal ============ */
+.photo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+
+.photo-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.photo-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+.photo-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: rgba(22, 22, 23, 0.96);
+  border: 1px solid var(--border-strong);
+  border-radius: 28px;
+  padding: 44px 40px 36px;
+  transform: scale(0.96) translateY(20px);
+  transition: transform 0.45s var(--ease);
+}
+
+.photo-modal.open .photo-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.photo-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  line-height: 1;
+}
+
+.photo-modal-close:hover { background: rgba(255, 255, 255, 0.18); }
+
+.photo-modal-eyebrow {
+  font-size: 13px;
+  color: var(--text-subtle);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.photo-modal-title {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin-bottom: 8px;
+  background: linear-gradient(180deg, #fff 0%, #c7c7cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.photo-modal-sub {
+  font-size: 17px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  letter-spacing: -0.008em;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.photo-card {
+  aspect-ratio: 4 / 3;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.photo-placeholder.ph-1 { background: linear-gradient(135deg, #1a2240 0%, #0a0f24 100%); }
+.photo-placeholder.ph-2 { background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1c 100%); }
+.photo-placeholder.ph-3 { background: linear-gradient(135deg, #1a2a3a 0%, #0d1820 100%); }
+
+.photo-placeholder-inner { padding: 22px; }
+
+.photo-placeholder-inner .ph-line {
+  width: 28px;
+  height: 1px;
+  background: var(--text-muted);
+  margin: 0 auto 14px;
+  opacity: 0.5;
+}
+
+.photo-placeholder-inner .ph-hint {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ============ Footer ============ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 22px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-subtle);
+  letter-spacing: -0.003em;
+}
+
+/* ============ Reveal animations ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal.delay-1 { transition-delay: 0.08s; }
+.reveal.delay-2 { transition-delay: 0.16s; }
+.reveal.delay-3 { transition-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  .section { padding: 100px 22px; }
+  .contact { padding: 120px 22px 80px; }
+  .skill-card, .stat { padding: 36px 28px; }
+  .stat-num { font-size: 64px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Charlie</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#numbers">Numbers</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#journey">Journey</a></li>
+      <li><a href="#travel">Travel</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">你好</p>
+  <h1 class="hero-title">I&rsquo;m Charlie</h1>
+  <p class="hero-fullname">CHENG TIANRUI · 程天瑞</p>
+  <p class="hero-tagline">Math student</p>
+  <p class="hero-motto">We don&rsquo;t guess. We calculate.</p>
+  <p class="hero-sub">Investment Science and Finance Analytics · The Hong Kong Polytechnic University</p>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+    <p class="eyebrow reveal">About me</p>
+    <h2 class="section-title reveal">在数据中,<br>读懂<span class="gradient">市场。</span></h2>
+    <p class="about-body reveal">我相信,好的判断不只来自直觉,也来自<strong>持续观察、数据验证和反复复盘</strong>。作为香港理工大学投资科学与金融分析专业的大二学生,我从金融市场出发,逐渐把兴趣延伸到数据分析、商业策略和技术应用。</p>
+    <p class="about-body reveal about-body-next">期货与股票实盘交易训练了我对风险、周期和信息的敏感度;而课程与项目经历让我进一步理解,分析能力可以被应用在许多不同领域。比起过早定义自己,我更希望持续探索<strong>金融、数据与商业交叉处的真实问题</strong>。</p>
+  </div>
+</section>
+
+<section class="section" id="numbers">
+  <div class="container">
+    <p class="eyebrow reveal">By the numbers</p>
+    <h2 class="section-title reveal">几个<span class="gradient">数字。</span></h2>
+    <p class="section-lede reveal">每一个,都是一段故事。</p>
+
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="stat-num gold">2</div>
+        <div class="stat-label">南京市赛艇金奖<span class="stat-label-en">Rowing championships</span></div>
+      </div>
+      <div class="stat reveal delay-1">
+        <div class="stat-num">4</div>
+        <div class="stat-label">A-Level 顶尖成绩<span class="stat-label-en">A+/A subjects</span></div>
+      </div>
+      <div class="stat reveal delay-2">
+        <div class="stat-num">3</div>
+        <div class="stat-label">实习经历<span class="stat-label-en">Internships</span></div>
+      </div>
+      <div class="stat reveal delay-3">
+        <div class="stat-num">1</div>
+        <div class="stat-label">韩国交换经历<span class="stat-label-en">Kyung Hee, Korea</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="expertise">
+  <div class="container">
+    <p class="eyebrow reveal">Expertise</p>
+    <h2 class="section-title reveal">专长<span class="gradient">领域。</span></h2>
+    <p class="section-lede reveal">不只是工具的清单。<br>是把判断变成结果的方式。</p>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-num">01 / Finance</div>
+        <h3 class="skill-card-title">金融分析</h3>
+        <ul class="skill-card-list">
+          <li>期货分析</li>
+          <li>行业数据</li>
+          <li>基本分析</li>
+          <li>趋势预测</li>
+          <li>报表审核</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal delay-1">
+        <div class="skill-card-num">02 / Toolkit</div>
+        <h3 class="skill-card-title">数据工具</h3>
+        <ul class="skill-card-list">
+          <li>数据透视</li>
+          <li>函数运算</li>
+          <li>数据清洗</li>
+          <li>图表制作</li>
+          <li>数据可视</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal delay-2">
+        <div class="skill-card-num">03 / Trading</div>
+        <h3 class="skill-card-title">市场实战</h3>
+        <ul class="skill-card-list">
+          <li>股票交易</li>
+          <li>期货交易</li>
+          <li>期权交易</li>
+          <li>加密货币</li>
+          <li>实盘经验</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal delay-3">
+        <div class="skill-card-num">04 / Marketing</div>
+        <h3 class="skill-card-title">海外营销</h3>
+        <ul class="skill-card-list">
+          <li>海外社媒</li>
+          <li>网红营销</li>
+          <li>跨境策划</li>
+          <li>双语沟通</li>
+          <li>报告撰写</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="container">
+    <p class="eyebrow reveal">Selected work</p>
+    <h2 class="section-title reveal">最近<span class="gradient">在做。</span></h2>
+    <p class="section-lede reveal">研究、交易、复盘。</p>
+
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-visual visual-4">
+          <svg class="visual-network" viewBox="0 0 600 280" preserveAspectRatio="none" aria-hidden="true">
+            <circle cx="120" cy="80" r="3.5" fill="rgba(255,255,255,0.4)"/>
+            <circle cx="280" cy="140" r="5" fill="rgba(255,255,255,0.55)"/>
+            <circle cx="430" cy="60" r="3.5" fill="rgba(255,255,255,0.4)"/>
+            <circle cx="180" cy="210" r="3" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="380" cy="225" r="3.5" fill="rgba(255,255,255,0.35)"/>
+            <circle cx="510" cy="175" r="3" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="70" cy="180" r="2.5" fill="rgba(255,255,255,0.25)"/>
+            <circle cx="540" cy="100" r="2.5" fill="rgba(255,255,255,0.25)"/>
+            <line x1="120" y1="80" x2="280" y2="140" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <line x1="280" y1="140" x2="430" y2="60" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <line x1="280" y1="140" x2="180" y2="210" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <line x1="280" y1="140" x2="380" y2="225" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <line x1="430" y1="60" x2="510" y2="175" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+            <line x1="120" y1="80" x2="70" y2="180" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="510" y1="175" x2="540" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="project-body">
+          <p class="project-tag">Marketing · 2026 · 进行中</p>
+          <h3 class="project-title">Ulike 海外出口营销</h3>
+          <p class="project-desc">在北京垣屿国际传媒任出海营销实习生,为美容科技品牌 Ulike 对接 Instagram、TikTok、YouTube 海外网红资源,参与多场跨境营销策划。把视角从金融延伸到消费市场,在每一次品牌触达中理解全球用户。</p>
+          <a href="#" class="project-link">了解项目</a>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-visual visual-1">
+          <svg class="visual-chart" viewBox="0 0 600 280" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M 0,220 Q 80,200 140,190 T 280,150 T 420,100 T 600,50" stroke="rgba(255,255,255,0.22)" stroke-width="1.4" fill="none"/>
+            <path d="M 0,240 Q 80,230 200,210 T 400,180 T 600,140" stroke="rgba(255,255,255,0.10)" stroke-width="1" fill="none"/>
+            <path d="M 0,260 Q 100,255 200,245 T 400,220 T 600,200" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+        <div class="project-body">
+          <p class="project-tag">Research · 2025</p>
+          <h3 class="project-title">工业硅期货价格趋势研究</h3>
+          <p class="project-desc">在中哲控股担任工业硅期货研究员,系统整合 SMM 与钢联的产业链数据,结合基本面分析构建分析图表,完成对硅价未来走势的研究报告。从宏观经济到产业上下游,在数据中寻找信号。</p>
+          <a href="#" class="project-link">查看研究</a>
+        </div>
+      </div>
+      <div class="project-card reveal delay-1">
+        <div class="project-visual visual-2"></div>
+        <div class="project-body">
+          <p class="project-tag">Strategy · 进行中</p>
+          <h3 class="project-title">个人交易策略复盘</h3>
+          <p class="project-desc">多年股票实盘经验,通过持续复盘与系统化总结,形成个性化的个股买入策略。在波动中保持冷静,在规则中保持灵活。</p>
+          <a href="#" class="project-link">了解逻辑</a>
+        </div>
+      </div>
+      <div class="project-card reveal delay-2">
+        <div class="project-visual visual-3"></div>
+        <div class="project-body">
+          <p class="project-tag gold">Competition · 2025</p>
+          <h3 class="project-title">2026 HK Web3 Ideations</h3>
+          <p class="project-desc">参与香港投资者及理财教育委员会主办的 Web3 投资比赛,把传统金融分析框架延伸到新兴资产类别,探索 Web3 时代的投资逻辑。</p>
+          <a href="#" class="project-link">查看作品</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="journey">
+  <div class="container">
+    <p class="eyebrow reveal">Experience</p>
+    <h2 class="section-title reveal">走过的<span class="gradient">路。</span></h2>
+    <p class="section-lede reveal">从课堂到市场,从赛道到办公室。</p>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <p class="timeline-period">2026.04</p>
+        <h3 class="timeline-title">国内产品出海营销实习生</h3>
+        <p class="timeline-place">北京垣屿国际传媒科技有限公司 · 深圳</p>
+        <p class="timeline-desc">为 Ulike 等消费品牌对接 Instagram、TikTok、YouTube 海外网红资源,参与多场跨境营销策划,把中国制造推向全球用户。</p>
+      </div>
+
+      <div class="timeline-item reveal">
+        <p class="timeline-period">2025.08</p>
+        <h3 class="timeline-title">工业硅期货研究员</h3>
+        <p class="timeline-place">中哲控股集团有限公司 · 宁波</p>
+        <p class="timeline-desc">统计 SMM、钢联数据,完成数据分析与图表绘制,撰写工业硅价格未来趋势预测报告。</p>
+      </div>
+
+      <div class="timeline-item reveal delay-1">
+        <p class="timeline-period">2025.07</p>
+        <h3 class="timeline-title">夏季交换学生 · 奖学金</h3>
+        <p class="timeline-place">韩国庆熙大学 · Kyung Hee University</p>
+        <p class="timeline-desc">获香港理工大学夏季交换生奖学金,赴韩学习与跨文化交流。</p>
+      </div>
+
+      <div class="timeline-item reveal delay-2">
+        <p class="timeline-period">2025.01</p>
+        <h3 class="timeline-title">财务实习生</h3>
+        <p class="timeline-place">美埃环境科技股份有限公司 · 南京</p>
+        <p class="timeline-desc">协助审核财务报表并整理归档相关资料,熟悉企业财务流程与合规要求。</p>
+      </div>
+
+      <div class="timeline-item reveal delay-1">
+        <p class="timeline-period">2024.09 — 至今</p>
+        <h3 class="timeline-title">本科在读 · Investment Science</h3>
+        <p class="timeline-place">The Hong Kong Polytechnic University · 数学系</p>
+        <p class="timeline-desc">投资科学与金融分析专业。主要课程:Calculus (A-)、Operations Research (A-)、Managerial Accounting (A-)。</p>
+      </div>
+
+      <div class="timeline-item reveal gold">
+        <p class="timeline-period">2024.08</p>
+        <h3 class="timeline-title">双人 &amp; 四人双桨 金奖</h3>
+        <p class="timeline-place">南京市青少年赛艇比赛 · 南京市赛艇运动协会</p>
+        <p class="timeline-desc">长期赛艇竞技训练,锤炼团队协作、抗压能力与拼搏精神。</p>
+      </div>
+
+      <div class="timeline-item reveal delay-2">
+        <p class="timeline-period">2021 — 2024</p>
+        <h3 class="timeline-title">A-Level Programme</h3>
+        <p class="timeline-place">南京市金陵中学河西分校</p>
+        <p class="timeline-desc">Mathematics (A+) · Further Mathematics (A) · Economics (A) · Physics (A)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="travel">
+  <div class="container">
+    <p class="eyebrow reveal">Travel</p>
+    <h2 class="section-title reveal">见过的<span class="gradient">风景。</span></h2>
+    <p class="section-lede reveal">点亮地球上的标记,看看那里的故事。<br>Drag to rotate · Scroll to zoom · Click any marker.</p>
+
+    <div class="globe-wrapper reveal">
+      <div class="globe-stage">
+        <div id="globe" class="globe"></div>
+      </div>
+      <div class="cities-list">
+        <p class="cities-eyebrow">VISITED · 17</p>
+        <ul>
+          <li data-city="changchun"><span class="city-name">Changchun</span><span class="city-cn">长春 · China</span></li>
+          <li data-city="changsha"><span class="city-name">Changsha</span><span class="city-cn">长沙 · China</span></li>
+          <li data-city="chengdu"><span class="city-name">Chengdu</span><span class="city-cn">成都 · China</span></li>
+          <li data-city="hongkong"><span class="city-name">Hong Kong</span><span class="city-cn">香港 · China</span></li>
+          <li data-city="nanjing"><span class="city-name">Nanjing</span><span class="city-cn">南京 · China</span></li>
+          <li data-city="shanghai"><span class="city-name">Shanghai</span><span class="city-cn">上海 · China</span></li>
+          <li data-city="shenzhen"><span class="city-name">Shenzhen</span><span class="city-cn">深圳 · China</span></li>
+          <li data-city="xiamen"><span class="city-name">Xiamen</span><span class="city-cn">厦门 · China</span></li>
+          <li data-city="tallinn"><span class="city-name">Tallinn</span><span class="city-cn">塔林 · Estonia</span></li>
+          <li data-city="helsinki"><span class="city-name">Helsinki</span><span class="city-cn">赫尔辛基 · Finland</span></li>
+          <li data-city="marseille"><span class="city-name">Marseille</span><span class="city-cn">马赛 · France</span></li>
+          <li data-city="paris"><span class="city-name">Paris</span><span class="city-cn">巴黎 · France</span></li>
+          <li data-city="busan"><span class="city-name">Busan</span><span class="city-cn">釜山 · Korea</span></li>
+          <li data-city="seoul"><span class="city-name">Seoul</span><span class="city-cn">首尔 · Korea</span></li>
+          <li data-city="kualalumpur"><span class="city-name">Kuala Lumpur</span><span class="city-cn">吉隆坡 · Malaysia</span></li>
+          <li data-city="taipei"><span class="city-name">Taipei</span><span class="city-cn">台北 · Taiwan</span></li>
+          <li data-city="hochiminh"><span class="city-name">Ho Chi Minh</span><span class="city-cn">胡志明 · Vietnam</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <p class="contact-eyebrow reveal">Let's connect.</p>
+  <h2 class="contact-title reveal">说一声<br>你好。</h2>
+  <a href="mailto:2018499509ctr@gmail.com" class="contact-cta reveal">发送邮件 →</a>
+  <div class="contact-links reveal delay-1">
+    <a href="https://www.linkedin.com/in/天瑞-程-261318355" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="#" id="wechat-link" data-wechat="Charlie_C05">WeChat</a>
+    <a href="tel:+8618705191759">+86 187 0519 1759</a>
+    <a href="tel:+85267621520">+852 6762 1520</a>
+    <a href="./Cheng_Tianrui_Resume.pdf" download="Cheng_Tianrui_Resume.pdf">Resume</a>
+  </div>
+</section>
+
+<div class="photo-modal" id="photo-modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="photo-modal-overlay"></div>
+  <div class="photo-modal-content">
+    <button class="photo-modal-close" aria-label="Close">&times;</button>
+    <p class="photo-modal-eyebrow" id="photo-modal-eyebrow">Country</p>
+    <h3 class="photo-modal-title" id="photo-modal-title">City</h3>
+    <p class="photo-modal-sub" id="photo-modal-sub">subtitle</p>
+    <div class="photo-grid" id="photo-grid"></div>
+  </div>
+</div>
+
+<div class="contact-toast" id="contact-toast" role="status" aria-live="polite"></div>
+
+<footer>
+  © 2026 Cheng Tianrui · 程天瑞 · The Hong Kong Polytechnic University
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+document.querySelectorAll('.nav-links a').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.pageYOffset - 24;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+  });
+});
+
+const wechatLink = document.getElementById('wechat-link');
+const toast = document.getElementById('contact-toast');
+if (wechatLink && toast) {
+  wechatLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = wechatLink.getAttribute('data-wechat');
+    const show = (msg) => {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(id).then(
+        () => show(`微信号已复制 · ${id}`),
+        () => show(`微信号: ${id}`)
+      );
+    } else {
+      show(`微信号: ${id}`);
+    }
+  });
+}
+
+// ============ Photo Modal ============
+const cities = [
+  // China — alphabetical by city
+  { id: 'changchun',   name: 'Changchun',     cn: '长春',     country: 'China',    lat: 43.8171, lng: 125.3235, photos: ['./photos/changchun-1.jpg', './photos/changchun-2.jpg', './photos/changchun-3.jpg'] },
+  { id: 'changsha',    name: 'Changsha',      cn: '长沙',     country: 'China',    lat: 28.2278, lng: 112.9388, photos: ['./photos/changsha-1.jpg', './photos/changsha-2.jpg', './photos/changsha-3.jpg'] },
+  { id: 'chengdu',     name: 'Chengdu',       cn: '成都',     country: 'China',    lat: 30.5728, lng: 104.0668, photos: [] },
+  { id: 'hongkong',    name: 'Hong Kong',     cn: '香港',     country: 'China',    lat: 22.3193, lng: 114.1694, photos: [] },
+  { id: 'nanjing',     name: 'Nanjing',       cn: '南京',     country: 'China',    lat: 32.0603, lng: 118.7969, photos: [] },
+  { id: 'shanghai',    name: 'Shanghai',      cn: '上海',     country: 'China',    lat: 31.2304, lng: 121.4737, photos: [] },
+  { id: 'shenzhen',    name: 'Shenzhen',      cn: '深圳',     country: 'China',    lat: 23.5,    lng: 114.0579, photos: [] },
+  { id: 'xiamen',      name: 'Xiamen',        cn: '厦门',     country: 'China',    lat: 24.4798, lng: 118.0894, photos: [] },
+  // Estonia
+  { id: 'tallinn',     name: 'Tallinn',       cn: '塔林',     country: 'Estonia',  lat: 59.4370, lng: 24.7536,  photos: [] },
+  // Finland
+  { id: 'helsinki',    name: 'Helsinki',      cn: '赫尔辛基', country: 'Finland',  lat: 60.1699, lng: 24.9384,  photos: [] },
+  // France — alphabetical by city
+  { id: 'marseille',   name: 'Marseille',     cn: '马赛',     country: 'France',   lat: 43.2965, lng: 5.3698,   photos: [] },
+  { id: 'paris',       name: 'Paris',         cn: '巴黎',     country: 'France',   lat: 48.8566, lng: 2.3522,   photos: [] },
+  // Korea — alphabetical by city
+  { id: 'busan',       name: 'Busan',         cn: '釜山',     country: 'Korea',    lat: 35.1796, lng: 129.0756, photos: [] },
+  { id: 'seoul',       name: 'Seoul',         cn: '首尔',     country: 'Korea',    lat: 37.5665, lng: 126.9780, photos: [] },
+  // Malaysia
+  { id: 'kualalumpur', name: 'Kuala Lumpur',  cn: '吉隆坡',   country: 'Malaysia', lat: 3.1390,  lng: 101.6869, photos: [] },
+  // Taiwan
+  { id: 'taipei',      name: 'Taipei',        cn: '台北',     country: 'Taiwan',   lat: 25.0330, lng: 121.5654, photos: [] },
+  // Vietnam
+  { id: 'hochiminh',   name: 'Ho Chi Minh',   cn: '胡志明',   country: 'Vietnam',  lat: 10.8231, lng: 106.6297, photos: [] }
+];
+
+function openPhotoModal(city) {
+  const modal = document.getElementById('photo-modal');
+  if (!modal) return;
+  document.getElementById('photo-modal-eyebrow').textContent = city.country;
+  document.getElementById('photo-modal-title').textContent = city.name;
+  document.getElementById('photo-modal-sub').textContent = `${city.cn} · ${city.country}`;
+
+  const grid = document.getElementById('photo-grid');
+  grid.innerHTML = '';
+
+  if (city.photos && city.photos.length > 0) {
+    city.photos.forEach((src) => {
+      const card = document.createElement('div');
+      card.className = 'photo-card';
+      card.innerHTML = `<img src="${src}" alt="${city.name}" loading="lazy">`;
+      grid.appendChild(card);
+    });
+  } else {
+    for (let i = 1; i <= 3; i++) {
+      const card = document.createElement('div');
+      card.className = `photo-card photo-placeholder ph-${i}`;
+      card.innerHTML = `
+        <div class="photo-placeholder-inner">
+          <div class="ph-line"></div>
+          <div class="ph-hint">Photo · Coming soon</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+  }
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePhotoModal() {
+  const modal = document.getElementById('photo-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.cities-list li').forEach((li) => {
+  li.addEventListener('click', () => {
+    const id = li.getAttribute('data-city');
+    const city = cities.find(c => c.id === id);
+    if (city) openPhotoModal(city);
+  });
+});
+
+const photoModalOverlay = document.querySelector('.photo-modal-overlay');
+const photoModalClose = document.querySelector('.photo-modal-close');
+if (photoModalOverlay) photoModalOverlay.addEventListener('click', closePhotoModal);
+if (photoModalClose) photoModalClose.addEventListener('click', closePhotoModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePhotoModal();
+});
+
+// ============ Globe (Three.js) ============
+(function initGlobe() {
+  if (typeof THREE === 'undefined') return;
+  const container = document.getElementById('globe');
+  if (!container) return;
+
+  let width = container.clientWidth;
+  let height = container.clientHeight;
+  if (width === 0 || height === 0) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+  camera.position.z = 320;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  const globeGroup = new THREE.Group();
+  scene.add(globeGroup);
+
+  const RADIUS = 100;
+  const GRID_COLOR = 0x4a90e2;
+
+  // ===== Starfield (3000 stars across a giant sphere far behind) =====
+  const starPositions = [];
+  for (let i = 0; i < 3000; i++) {
+    const r = 700 + Math.random() * 400;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const theta = Math.random() * Math.PI * 2;
+    starPositions.push(
+      r * Math.sin(phi) * Math.cos(theta),
+      r * Math.sin(phi) * Math.sin(theta),
+      r * Math.cos(phi)
+    );
+  }
+  const starsGeom = new THREE.BufferGeometry();
+  starsGeom.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
+  const stars = new THREE.Points(starsGeom, new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 1.4,
+    transparent: true,
+    opacity: 0.75,
+    sizeAttenuation: true
+  }));
+  scene.add(stars);
+
+  // ===== Lighting (uniform hemispheric — no directional hotspot, no color shift as Earth rotates) =====
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x2a3a4a, 1.5);
+  scene.add(hemiLight);
+
+  // ===== Base sphere with Basic material (uniform texture colors, no specular highlights) =====
+  const baseMat = new THREE.MeshBasicMaterial({
+    color: 0x1c4d8c       // brighter ocean blue fallback (if texture fails)
+  });
+  const baseSphere = new THREE.Mesh(
+    new THREE.SphereGeometry(RADIUS * 0.985, 64, 48),
+    baseMat
+  );
+  globeGroup.add(baseSphere);
+
+  // ===== Try loading Earth texture (Blue Marble — NASA's colorful Earth) =====
+  // Multiple CDN fallbacks so it works almost everywhere
+  const texLoader = new THREE.TextureLoader();
+  texLoader.crossOrigin = 'anonymous';
+  const earthUrls = [
+    'https://cdn.jsdelivr.net/npm/three-globe@2.30.0/example/img/earth-blue-marble.jpg',
+    'https://unpkg.com/three-globe@2.30.0/example/img/earth-blue-marble.jpg',
+    'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg'
+  ];
+  function tryLoadTexture(i) {
+    if (i >= earthUrls.length) return;
+    texLoader.load(
+      earthUrls[i],
+      (texture) => {
+        baseMat.map = texture;
+        baseMat.color = new THREE.Color(0xffffff);
+        baseMat.needsUpdate = true;
+      },
+      undefined,
+      () => tryLoadTexture(i + 1)
+    );
+  }
+  tryLoadTexture(0);
+
+  // ===== Cloud layer (separate sphere, slightly bigger, rotates a bit faster) =====
+  let cloudMesh = null;
+  const cloudUrls = [
+    'https://threejs.org/examples/textures/planets/earth_clouds_2048.png',
+    'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r150/examples/textures/planets/earth_clouds_2048.png',
+    'https://cdn.jsdelivr.net/npm/three-globe@2.30.0/example/img/clouds.png'
+  ];
+  function tryLoadClouds(i) {
+    if (i >= cloudUrls.length) return;
+    texLoader.load(
+      cloudUrls[i],
+      (cloudTex) => {
+        cloudMesh = new THREE.Mesh(
+          new THREE.SphereGeometry(RADIUS * 1.008, 64, 48),
+          new THREE.MeshBasicMaterial({
+            map: cloudTex,
+            transparent: true,
+            opacity: 0.5,
+            depthWrite: false
+          })
+        );
+        globeGroup.add(cloudMesh);
+      },
+      undefined,
+      () => tryLoadClouds(i + 1)
+    );
+  }
+  tryLoadClouds(0);
+
+  // ===== Multi-layer atmosphere (inner crisp, middle, outer soft) =====
+  const atmoInner = new THREE.Mesh(
+    new THREE.SphereGeometry(RADIUS * 1.04, 32, 32),
+    new THREE.MeshBasicMaterial({ color: 0x66aaff, transparent: true, opacity: 0.11, side: THREE.BackSide })
+  );
+  scene.add(atmoInner);
+  const atmoMid = new THREE.Mesh(
+    new THREE.SphereGeometry(RADIUS * 1.10, 32, 32),
+    new THREE.MeshBasicMaterial({ color: 0x4488ff, transparent: true, opacity: 0.07, side: THREE.BackSide })
+  );
+  scene.add(atmoMid);
+  const atmoOuter = new THREE.Mesh(
+    new THREE.SphereGeometry(RADIUS * 1.18, 32, 32),
+    new THREE.MeshBasicMaterial({ color: 0x3366cc, transparent: true, opacity: 0.04, side: THREE.BackSide })
+  );
+  scene.add(atmoOuter);
+
+  // lat/lng → 3D
+  function latLngToVector3(lat, lng, r) {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lng + 180) * (Math.PI / 180);
+    return new THREE.Vector3(
+      -(r * Math.sin(phi) * Math.cos(theta)),
+      r * Math.cos(phi),
+      r * Math.sin(phi) * Math.sin(theta)
+    );
+  }
+
+  // City markers — small dot + glowing halo + pulsing ring + large invisible hit-target
+  const markers = [];
+  cities.forEach((city) => {
+    const pos = latLngToVector3(city.lat, city.lng, RADIUS * 1.012);
+
+    // Bright white core dot (small)
+    const dot = new THREE.Mesh(
+      new THREE.SphereGeometry(0.85, 16, 16),
+      new THREE.MeshBasicMaterial({ color: 0xffffff })
+    );
+    dot.position.copy(pos);
+    dot.userData = { city };
+    globeGroup.add(dot);
+
+    // Static inner halo (soft blue glow around the dot)
+    const innerHalo = new THREE.Mesh(
+      new THREE.SphereGeometry(1.4, 12, 12),
+      new THREE.MeshBasicMaterial({
+        color: 0x2997ff,
+        transparent: true,
+        opacity: 0.35,
+        depthWrite: false
+      })
+    );
+    innerHalo.position.copy(pos);
+    globeGroup.add(innerHalo);
+
+    // Outer pulsing ring (tangent to sphere surface)
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(1.6, 2.4, 32),
+      new THREE.MeshBasicMaterial({
+        color: 0x2997ff,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.8,
+        depthWrite: false
+      })
+    );
+    ring.position.copy(pos);
+    ring.lookAt(pos.clone().multiplyScalar(2));
+    globeGroup.add(ring);
+
+    // INVISIBLE large hit-target — gives a generous click radius without enlarging the visible marker
+    const hitTarget = new THREE.Mesh(
+      new THREE.SphereGeometry(3.5, 12, 12),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+    );
+    hitTarget.position.copy(pos);
+    hitTarget.userData = { city };
+    globeGroup.add(hitTarget);
+
+    markers.push({ dot, ring, innerHalo, hitTarget });
+  });
+
+  // Initial rotation — face East Asia
+  globeGroup.rotation.y = -Math.PI * 0.72;
+  globeGroup.rotation.x = -0.3;
+
+  // Interaction state
+  let autoRotate = true;
+  let lastX = 0, lastY = 0;
+  let isDragging = false;
+  let lastInteraction = 0;
+  let downPos = null;
+  const RESUME_DELAY = 3500;
+
+  const canvas = renderer.domElement;
+  canvas.style.touchAction = 'none';
+
+  // Mouse wheel zoom (zoom in close enough to distinguish nearby cities)
+  canvas.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    camera.position.z += e.deltaY * 0.12;
+    camera.position.z = Math.max(180, Math.min(500, camera.position.z));
+  }, { passive: false });
+
+  function startDrag(x, y) {
+    isDragging = true;
+    lastX = x; lastY = y;
+    downPos = { x, y };
+    autoRotate = false;
+  }
+  function doDrag(x, y) {
+    if (!isDragging) return;
+    const dx = x - lastX;
+    const dy = y - lastY;
+    globeGroup.rotation.y += dx * 0.005;
+    globeGroup.rotation.x += dy * 0.005;
+    globeGroup.rotation.x = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, globeGroup.rotation.x));
+    lastX = x; lastY = y;
+  }
+  function endDrag(x, y) {
+    if (!isDragging) return;
+    isDragging = false;
+    lastInteraction = Date.now();
+    // If barely moved, treat as click
+    if (downPos) {
+      const moved = Math.abs(x - downPos.x) + Math.abs(y - downPos.y);
+      if (moved < 6) checkMarkerClick(x, y);
+    }
+    downPos = null;
+  }
+
+  canvas.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+  window.addEventListener('mousemove', (e) => doDrag(e.clientX, e.clientY));
+  window.addEventListener('mouseup', (e) => endDrag(e.clientX, e.clientY));
+
+  canvas.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) startDrag(e.touches[0].clientX, e.touches[0].clientY);
+  });
+  canvas.addEventListener('touchmove', (e) => {
+    if (isDragging && e.touches.length === 1) {
+      e.preventDefault();
+      doDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: false });
+  canvas.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length > 0) endDrag(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+  });
+
+  // Marker click detection (raycaster)
+  const raycaster = new THREE.Raycaster();
+  const ndc = new THREE.Vector2();
+  function checkMarkerClick(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    ndc.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    ndc.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(ndc, camera);
+    const hits = raycaster.intersectObjects(markers.map(m => m.hitTarget));
+    if (hits.length > 0) openPhotoModal(hits[0].object.userData.city);
+  }
+
+  // Hover cursor change
+  canvas.addEventListener('mousemove', (e) => {
+    if (isDragging) return;
+    const rect = canvas.getBoundingClientRect();
+    ndc.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    ndc.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(ndc, camera);
+    const hits = raycaster.intersectObjects(markers.map(m => m.hitTarget));
+    canvas.style.cursor = hits.length > 0 ? 'pointer' : 'grab';
+  });
+
+  // Animate
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.016;
+
+    if (!isDragging && !autoRotate && Date.now() - lastInteraction > RESUME_DELAY) {
+      autoRotate = true;
+    }
+    if (autoRotate) globeGroup.rotation.y += 0.0014;
+
+    // Clouds rotate slightly faster than Earth for "weather moving" effect
+    if (cloudMesh) cloudMesh.rotation.y += 0.0004;
+
+    // Pulse rings
+    markers.forEach((m, i) => {
+      const phase = (time + i * 0.4) * 1.6;
+      const p = 1 + (Math.sin(phase) * 0.5 + 0.5) * 0.6;
+      m.ring.scale.set(p, p, p);
+      m.ring.material.opacity = 0.7 * (1 - (p - 1) / 0.6);
+    });
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize
+  function handleResize() {
+    width = container.clientWidth;
+    height = container.clientHeight;
+    if (width === 0 || height === 0) return;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  }
+  window.addEventListener('resize', handleResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(handleResize).observe(container);
+  }
+})();
+</script>
+
+</body>
+</html>
